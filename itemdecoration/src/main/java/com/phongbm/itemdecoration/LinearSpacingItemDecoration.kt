@@ -19,8 +19,15 @@ private constructor(
     private val edgeSpacing: Int?
 ) : RecyclerView.ItemDecoration() {
     companion object {
-        private fun verticalCore(spacing: Int, includeHead: Boolean, includeTail: Boolean, hasEdge: Boolean, edgeSpacing: Int?) =
-            LinearSpacingItemDecoration(RecyclerView.VERTICAL, spacing, includeHead, includeTail, hasEdge, edgeSpacing)
+        private fun verticalCore(
+            spacing: Int,
+            includeHead: Boolean,
+            includeTail: Boolean,
+            hasEdge: Boolean,
+            edgeSpacing: Int?
+        ) = LinearSpacingItemDecoration(
+            RecyclerView.VERTICAL, spacing, includeHead, includeTail, hasEdge, edgeSpacing
+        )
 
         fun verticalBoth(spacing: Int, hasEdge: Boolean = false, edgeSpacing: Int? = null) =
             verticalCore(spacing, includeHead = true, includeTail = true, hasEdge, edgeSpacing)
@@ -34,8 +41,15 @@ private constructor(
         fun verticalEnd(spacing: Int, hasEdge: Boolean = false, edgeSpacing: Int? = null) =
             verticalCore(spacing, includeHead = false, includeTail = true, hasEdge, edgeSpacing)
 
-        private fun horizontalCore(spacing: Int, includeHead: Boolean, includeTail: Boolean, hasEdge: Boolean, edgeSpacing: Int?) =
-            LinearSpacingItemDecoration(RecyclerView.HORIZONTAL, spacing, includeHead, includeTail, hasEdge, edgeSpacing)
+        private fun horizontalCore(
+            spacing: Int,
+            includeHead: Boolean,
+            includeTail: Boolean,
+            hasEdge: Boolean,
+            edgeSpacing: Int?
+        ) = LinearSpacingItemDecoration(
+            RecyclerView.HORIZONTAL, spacing, includeHead, includeTail, hasEdge, edgeSpacing
+        )
 
         fun horizontalBoth(spacing: Int, hasEdge: Boolean = false, edgeSpacing: Int? = null) =
             horizontalCore(spacing, includeHead = true, includeTail = true, hasEdge, edgeSpacing)
@@ -50,7 +64,12 @@ private constructor(
             horizontalCore(spacing, includeHead = false, includeTail = true, hasEdge, edgeSpacing)
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val position = parent.getChildAdapterPosition(view)
         if (position == RecyclerView.NO_POSITION) return
 

@@ -17,20 +17,29 @@ private constructor(
     context: Context,
     private val includeHead: Boolean,
     private val includeTail: Boolean,
-    private val marginStart: Int?
+    private val marginStart: Int?,
+    private val marginEnd: Int?
 ) : RecyclerView.ItemDecoration() {
     companion object {
-        fun both(context: Context, marginStart: Int? = null) =
-            ListDividerItemDecoration(context, includeHead = true, includeTail = true, marginStart)
+        fun both(context: Context, marginStart: Int? = null, marginEnd: Int? = null) =
+            ListDividerItemDecoration(
+                context, includeHead = true, includeTail = true, marginStart, marginEnd
+            )
 
-        fun center(context: Context, marginStart: Int? = null) =
-            ListDividerItemDecoration(context, includeHead = false, includeTail = false, marginStart)
+        fun center(context: Context, marginStart: Int? = null, marginEnd: Int? = null) =
+            ListDividerItemDecoration(
+                context, includeHead = false, includeTail = false, marginStart, marginEnd
+            )
 
-        fun start(context: Context, marginStart: Int? = null) =
-            ListDividerItemDecoration(context, includeHead = true, includeTail = false, marginStart)
+        fun start(context: Context, marginStart: Int? = null, marginEnd: Int? = null) =
+            ListDividerItemDecoration(
+                context, includeHead = true, includeTail = false, marginStart, marginEnd
+            )
 
-        fun end(context: Context, marginStart: Int? = null) =
-            ListDividerItemDecoration(context, includeHead = false, includeTail = true, marginStart)
+        fun end(context: Context, marginStart: Int? = null, marginEnd: Int? = null) =
+            ListDividerItemDecoration(
+                context, includeHead = false, includeTail = true, marginStart, marginEnd
+            )
     }
 
     private val divider: Drawable
@@ -50,7 +59,7 @@ private constructor(
             if (position == RecyclerView.NO_POSITION) return
 
             val left = child.left + (marginStart ?: 0)
-            val right = child.right
+            val right = child.right - (marginEnd ?: 0)
 
             if (position == 0 && includeHead) {
                 val top = child.top - divider.intrinsicHeight
@@ -67,7 +76,12 @@ private constructor(
         }
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val position = parent.getChildAdapterPosition(view)
         if (position == RecyclerView.NO_POSITION) return
 
